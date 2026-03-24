@@ -1,0 +1,24 @@
+{
+  "name": "@helix/storage-sqlite",
+  "version": "0.1.0",
+  "description": "SQLite-backed session storage — uses bun:sqlite (no native modules)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "bun": "./src/index.ts",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target bun --format esm --sourcemap",
+    "dev":   "bun build --watch src/index.ts --outdir dist --target bun --format esm",
+    "test":  "bun test"
+  },
+  "dependencies": {
+    "@helix/core": "*"
+  },
+  "engines": { "bun": ">=1.1.0" }
+}

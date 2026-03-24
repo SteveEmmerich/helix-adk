@@ -1,0 +1,48 @@
+{
+  "name": "@helix/skills",
+  "version": "0.1.0",
+  "description": "Skills system for Helix ADK with multi-layer security",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "bun": "./src/index.ts",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./cli/install": {
+      "bun": "./src/cli/install.ts",
+      "import": "./dist/cli/install.js",
+      "types": "./dist/cli/install.d.ts"
+    },
+    "./cli/list": {
+      "bun": "./src/cli/list.ts",
+      "import": "./dist/cli/list.js",
+      "types": "./dist/cli/list.d.ts"
+    },
+    "./cli/remove": {
+      "bun": "./src/cli/remove.ts",
+      "import": "./dist/cli/remove.js",
+      "types": "./dist/cli/remove.d.ts"
+    },
+    "./cli/audit": {
+      "bun": "./src/cli/audit.ts",
+      "import": "./dist/cli/audit.js",
+      "types": "./dist/cli/audit.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "bun build src/index.ts src/cli/*.ts src/runtime/*.ts src/install/*.ts src/registry/*.ts --outdir dist --target bun --format esm --sourcemap",
+    "dev": "bun build --watch src/index.ts --outdir dist --target bun --format esm",
+    "test": "bun test",
+    "check": "bunx @biomejs/biome check src"
+  },
+  "dependencies": {
+    "@helix/ai": "*",
+    "@helix/core": "*",
+    "sigstore": "^2.3.0",
+    "@babel/parser": "^7.26.0",
+    "js-yaml": "^4.1.0"
+  }
+}

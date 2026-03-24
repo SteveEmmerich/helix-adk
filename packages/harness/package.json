@@ -1,0 +1,26 @@
+{
+  "name": "@helix/harness",
+  "version": "0.1.0",
+  "description": "Stress test harness for Helix ADK — SSE replay, property tests, load tests, smoke tests",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test":            "bun test",
+    "test:providers":  "bun test src/providers/",
+    "test:agent":      "bun test src/agent/",
+    "test:sqlite":     "bun test src/sqlite/",
+    "test:load":       "bun run src/load/runner.ts",
+    "smoke:tui":       "bun run src/tui/smoke.ts",
+    "smoke:all":       "bun run src/tui/smoke.ts && bun run src/load/runner.ts",
+    "fixtures:record": "bun run src/fixtures/record.ts"
+  },
+  "dependencies": {
+    "@helix/ai": "*",
+    "@helix/core": "*",
+    "@helix/storage-sqlite": "*"
+  },
+  "devDependencies": {
+    "fast-check": "^3.22.0",
+    "bun-types": "latest"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@helix/memory",
+  "version": "0.1.0",
+  "description": "Four-tier persistent memory for Helix ADK",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "bun": "./src/index.ts",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "bun build src/index.ts src/providers/*.ts src/tiers/*.ts src/migration/*.ts --outdir dist --target bun --format esm --sourcemap",
+    "dev": "bun build --watch src/index.ts --outdir dist --target bun --format esm",
+    "test": "bun test",
+    "check": "bunx @biomejs/biome check src"
+  },
+  "dependencies": {
+    "@helix/ai": "*",
+    "@xenova/transformers": "^2.17.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@helix/ext-memory",
+  "version": "0.1.0",
+  "description": "Persistent SQLite-backed memory extension for Helix ADK",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target bun --format esm --sourcemap",
+    "dev": "bun build --watch src/index.ts --outdir dist --target bun --format esm",
+    "test": "bun test",
+    "check": "bunx @biomejs/biome check src"
+  },
+  "dependencies": {
+    "@helix/cli": "*",
+    "@helix/core": "*"
+  },
+  "devDependencies": {},
+  "engines": {
+    "bun": ">=1.1.0"
+  }
+}

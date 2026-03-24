@@ -1,0 +1,4 @@
+# Equivalent to .npmignore for bun publish
+dist/
+*.test.ts
+tests/

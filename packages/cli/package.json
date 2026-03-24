@@ -1,0 +1,36 @@
+{
+  "name": "@helix/cli",
+  "version": "0.1.0",
+  "description": "Terminal runtime for the Helix ADK",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": { "hlx": "./dist/bin/hlx.js" },
+  "exports": {
+    ".": { "import": "./dist/index.js", "types": "./dist/index.d.ts" },
+    "./extension": { "import": "./dist/extensions/types.js", "types": "./dist/extensions/types.d.ts" }
+  },
+  "scripts": {
+    "build": "bun build src/bin/hlx.ts --outdir dist/bin --target bun && bun build src/index.ts --outdir dist --target bun --format esm --sourcemap",
+    "dev":   "bun --watch src/bin/hlx.ts",
+    "hlx":  "bun src/bin/hlx.ts",
+    "check": "bunx @biomejs/biome check src",
+    "test":  "bun test"
+  },
+  "dependencies": {
+    "@helix/ai": "*",
+    "@helix/core": "*",
+    "@helix/memory": "*",
+    "@helix/security": "*",
+    "@helix/skills": "*",
+    "ink": "^5.0.1",
+    "ink-text-input": "^6.0.0",
+    "react": "^18.3.0",
+    "chalk": "^5.3.0",
+    "chokidar": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "bun-types": "latest"
+  }
+}

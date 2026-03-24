@@ -1,0 +1,22 @@
+# Bun configuration
+# https://bun.sh/docs/runtime/bunfig
+
+[install]
+# Use exact versions for reproducibility
+exact = false
+
+[test]
+# Test file patterns
+include = ["packages/*/tests/**/*.test.ts", "packages/*/src/**/*.test.ts"]
+# Exclude app e2e tests (Playwright has its own runner)
+exclude = ["apps/**"]
+# Timeout per test
+timeout = 10000
+# Coverage
+coverage = true
+coverageReporter = ["text", "lcov"]
+coverageDir = "coverage"
+
+[build]
+# Production build target
+target = "bun"

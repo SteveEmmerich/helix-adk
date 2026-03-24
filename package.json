@@ -1,0 +1,43 @@
+{
+  "name": "helix-adk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Helix ADK \u2014 Agent Development Kit for TypeScript",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "bun run build:ai && bun run build:core && bun run build:evals && bun run build:cli && bun run build:sqlite && bun run build:mcp && bun run build:skills && bun run build:memory && bun run build:security",
+    "build:ai": "cd packages/ai && bun run build",
+    "build:core": "cd packages/core && bun run build",
+    "build:evals": "cd packages/evals && bun run build",
+    "build:cli": "cd packages/cli && bun run build",
+    "build:sqlite": "cd packages/storage-sqlite && bun run build",
+    "build:mcp": "cd packages/mcp && bun run build",
+    "build:skills": "cd packages/skills && bun run build",
+    "build:memory": "cd packages/memory && bun run build",
+    "build:security": "cd packages/security && bun run build",
+    "dev": "bun run --bun concurrently -n ai,core,evals,cli -c cyan,green,yellow,blue 'cd packages/ai && bun run dev' 'cd packages/core && bun run dev' 'cd packages/evals && bun run dev' 'cd packages/cli && bun run dev'",
+    "test": "bun test",
+    "check": "bunx @biomejs/biome check packages/*/src",
+    "format": "bunx @biomejs/biome format --write packages/*/src",
+    "clean": "find packages -name dist -type d -exec rm -rf {} + 2>/dev/null; true",
+    "hlx": "bun run packages/cli/src/bin/hlx.ts",
+    "hlx:built": "bun run packages/cli/dist/bin/hlx.js",
+    "test:providers": "cd packages/harness && bun run test:providers",
+    "test:agent": "cd packages/harness && bun run test:agent",
+    "test:sqlite": "cd packages/harness && bun run test:sqlite",
+    "test:load": "cd packages/harness && bun run test:load",
+    "smoke": "cd packages/harness && bun run smoke:all",
+    "fixtures:record": "cd packages/harness && bun run fixtures:record"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0",
+    "@types/bun": "latest",
+    "concurrently": "^9.0.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "bun": ">=1.1.0"
+  }
+}

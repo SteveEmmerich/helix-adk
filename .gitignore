@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.next/
+coverage/
+*.db
+.env
+.env.local
+~/.hlx/
+.hlx/sessions/
+playwright-report/
+test-results.xml

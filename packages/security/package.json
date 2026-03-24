@@ -1,0 +1,24 @@
+{
+  "name": "@helix/security",
+  "version": "0.1.0",
+  "description": "Security utilities for Helix ADK: vault, DLP, leak detection",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "bun": "./src/index.ts",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "bun build src/index.ts src/vault/*.ts src/detection/*.ts src/dlp/*.ts src/middleware/*.ts --outdir dist --target bun --format esm --sourcemap",
+    "dev": "bun build --watch src/index.ts --outdir dist --target bun --format esm",
+    "test": "bun test",
+    "check": "bunx @biomejs/biome check src"
+  },
+  "dependencies": {
+    "@helix/ai": "*"
+  }
+}

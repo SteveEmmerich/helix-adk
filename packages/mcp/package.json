@@ -1,0 +1,25 @@
+{
+  "name": "@helix/mcp",
+  "version": "0.1.0",
+  "description": "Model Context Protocol adapter \u2014 use any MCP server as Helix tools",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target bun --format esm --sourcemap",
+    "dev": "bun build --watch src/index.ts --outdir dist --target bun --format esm",
+    "test": "bun test",
+    "check": "bunx @biomejs/biome check src"
+  },
+  "dependencies": {
+    "@helix/ai": "*",
+    "@helix/core": "*",
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}
