@@ -48,6 +48,10 @@ jobs:
           name: Bun Tests
           path: test-results.xml
           reporter: java-junit
+      
+      - name: Test summary
+        if: always()
+        run: echo "helix-adk tests complete"
 
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v4
