@@ -281,6 +281,10 @@ bun run check        # Lint + type check
 bun run test         # Run tests
 ```
 
+## Used By
+
+- [HelixClaw](https://github.com/SteveEmmerich/helix-claw) — autonomous agent product built on Helix ADK
+
 ## License
 
 MIT

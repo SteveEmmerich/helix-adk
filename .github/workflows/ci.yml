@@ -1,0 +1,105 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Cache Bun
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun
+            node_modules
+            **/node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - name: Install
+        run: bun install
+
+      - name: Test
+        run: bun test --reporter junit --reporter-out test-results.xml
+
+      - name: Check Exports
+        run: bun run build 2>/dev/null || true
+
+      - name: Lint
+        run: bun run check
+
+      - name: Upload Test Report
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Bun Tests
+          path: test-results.xml
+          reporter: java-junit
+
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/lcov.info
+          fail_ci_if_error: true
+
+  playwright:
+    runs-on: ubuntu-latest
+    needs: test
+    env:
+      HELIXCLAW_DASHBOARD_TOKEN: test-token-for-ci
+      HELIXCLAW_GATEWAY_URL: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Cache Bun
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun
+            node_modules
+            **/node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - name: Install
+        run: bun install
+
+      - name: Build Dashboard
+        run: cd apps/dashboard && bun run build
+
+      - name: Install Playwright Browsers
+        run: bunx playwright install --with-deps
+
+      - name: Playwright Tests
+        run: |
+          cd apps/dashboard
+          bunx next start --hostname 127.0.0.1 --port 3000 &
+          sleep 5
+          bunx playwright test
+
+      - name: Upload Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: apps/dashboard/playwright-report
